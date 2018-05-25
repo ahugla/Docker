@@ -12,9 +12,24 @@ yum-config-manager --enable docker-ce-test
 
 yum install -y docker-ce    # latest version
 
-
 systemctl start docker
 
 systemctl enable docker
 
+
+
+
+# Remote API
+initialchaine="ExecStart=\/usr\/bin\/dockerd"
+newchaine="ExecStart=\/usr\/bin\/dockerd  -H unix:\/\/\/var\/run\/docker.sock  -H tcp:\/\/0.0.0.0:2375"
+sed -i -e 's/'"$initialchaine"'/'"$newchaine"'/g'  /usr/lib/systemd/system/docker.service
+
+
+
+
+systemctl stop docker
+
+systemctl daemon-reload
+
+systemctl start docker
 
