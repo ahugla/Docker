@@ -26,7 +26,7 @@ EOF
 sysctl --system
 
 # on desinstalle les precedentes versions
-dnf -y remove docker docker-common docker-selinux docker-engine
+dnf -y remove docker docker-common docker-selinux docker-engine docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 dnf update -y
 
@@ -34,12 +34,13 @@ dnf -y install device-mapper-persistent-data lvm2
 
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
-#dnf -y install docker-ce
-dnf -y install docker-ce-20.10.20-3.el8
 #dnf -y install docker-ce-cli
 dnf -y install docker-ce-cli-20.10.20-3.el8
-dnf -y install containerd.io
-dnf -y install docker-compose-plugin --allowerasing
+
+#dnf -y install docker-ce                  # --allowerasing
+dnf -y install docker-ce-20.10.20-3.el8    # --allowerasing
+
+dnf -y install docker-compose-plugin
 
 systemctl enable docker --now
 #systemctl status docker
